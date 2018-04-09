@@ -1,0 +1,60 @@
+feign:
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml;application/xml;application/json
+      min-request-size: 2048
+    response:
+      enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+logging:
+  level:
+    root: INFO
+    com.netflix: DEBUG
+    org.springframework.cloud.sleuth: DEBUG
+    com.springms: DEBUG
+    com.svw.avacar.apigateway.service.AuthenticationFeignClient: DEBUG
+    com.svw.avacar.apigateway.service.UserServiceFeignClient: DEBUG
+
+info:
+  app:
+    name: @project.artifactId@
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @java.version@
+      target: @java.version@
+
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://avacar-eurekaserver-v1:8080/eureka/
+  instance:
+    prefer-ip-address: true  # 表示将自己的IP注册到EurekaServer
+
+spring:
+  profiles: ali-k8s-uat
+  sleuth:
+    sampler:
+      percentage: 0.1
+  rabbitmq:
+    host: 10.10.11.188
+    port: 5672
+    username: rabbit
+    password: rabbit
+  output:
+    ansi:
+      enabled: ALWAYS
+
